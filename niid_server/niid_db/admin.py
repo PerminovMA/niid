@@ -9,7 +9,7 @@ class ToxCharAdmin(admin.ModelAdmin):
     form = ToxCharForm
 
     fields = [('dl50_vz', 'dl50_vz_value'), ('dl50_nk', 'dl50_nk_value'), ('pdk_atmosphere', 'pdk_work_zone'), ('obyv_atmosphere', 'obyv_work_zone'),
-              'tox_stomach', 'tox_skin', 'skin_irritation_1', 'skin_irritation_2',
+              'skin_irritation_1', 'skin_irritation_2',
               'eyes_irritation', 'c20', 'sensitization', 'resorbtive_action', ('zbioc_eff_subac', 'subac_value'),
               ('zbioc_eff_ac', 'ac_value'), 'comment']
 

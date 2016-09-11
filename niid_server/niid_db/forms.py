@@ -6,14 +6,6 @@ from .tools import *
 
 
 class ToxCharForm(forms.ModelForm):
-    tox_skin = forms.MultipleChoiceField(choices=TOXCHAR_TOX_SKIN_CHOICES,
-                                         widget=forms.CheckboxSelectMultiple,
-                                         label=ToxChar._meta.get_field('tox_skin').verbose_name,
-                                         required=not ToxChar._meta.get_field('tox_skin').blank)
-    tox_stomach = forms.MultipleChoiceField(choices=TOXCHAR_TOX_STOMACH_CHOICES,
-                                            widget=forms.CheckboxSelectMultiple,
-                                            label=ToxChar._meta.get_field('tox_stomach').verbose_name,
-                                            required=not ToxChar._meta.get_field('tox_stomach').blank)
     skin_irritation_1 = forms.MultipleChoiceField(choices=TOXCHAR_IRRITATION_CHOICES,
                                                   widget=forms.CheckboxSelectMultiple,
                                                   label=ToxChar._meta.get_field('skin_irritation_1').verbose_name,
@@ -38,8 +30,7 @@ class ToxCharForm(forms.ModelForm):
     class Meta:
         model = ToxChar
         fields = ['dl50_vz', 'dl50_vz_value', 'dl50_nk', 'dl50_nk_value', 'pdk_atmosphere', 'pdk_work_zone',
-                  'obyv_atmosphere', 'obyv_work_zone',
-                  'tox_stomach', 'tox_skin', 'skin_irritation_1', 'skin_irritation_2',
+                  'obyv_atmosphere', 'obyv_work_zone', 'skin_irritation_1', 'skin_irritation_2',
                   'eyes_irritation', 'c20', 'sensitization', 'resorbtive_action', 'zbioc_eff_subac', 'subac_value',
                   'zbioc_eff_ac', 'ac_value', 'comment']
 

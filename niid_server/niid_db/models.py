@@ -14,9 +14,9 @@ __author__ = 'PerminovMA@live.ru'
 class ToxChar(models.Model):
     """Toxicological characteristics"""
     dl50_vz = models.CharField(max_length=255, verbose_name=u"DL50", choices=TOXCHAR_TOX_STOMACH_CHOICES)
-    dl50_vz_value = models.FloatField(verbose_name=u"Значение DL50 в/ж, мг/кг", blank=True, null=True)
+    dl50_vz_value = models.CharField(max_length=100, verbose_name=u"Значение DL50 в/ж, мг/кг", blank=True, null=True)
     dl50_nk = models.CharField(max_length=255, verbose_name=u"DL50", choices=TOXCHAR_TOX_SKIN_CHOICES)
-    dl50_nk_value = models.FloatField(verbose_name=u"Значение DL50 н/к, мг/кг", blank=True, null=True)
+    dl50_nk_value = models.CharField(max_length=100, verbose_name=u"Значение DL50 н/к, мг/кг", blank=True, null=True)
     pdk_atmosphere = models.DecimalField(max_length=100, decimal_places=3, max_digits=7, blank=True, null=True,
                                          verbose_name=u"ПДК в атмосферном воздухе")
     pdk_work_zone = models.DecimalField(max_length=100, decimal_places=3, max_digits=7, blank=True, null=True,
@@ -25,12 +25,6 @@ class ToxChar(models.Model):
                                           verbose_name=u"ОБУВ в атмосферном воздухе")
     obyv_work_zone = models.DecimalField(max_length=100, decimal_places=3, max_digits=7, blank=True, null=True,
                                          verbose_name=u"ОБУВ в воздухе рабочей зоны")
-    tox_stomach = ArrayField(
-        models.CharField(max_length=100), blank=True, null=True,
-        verbose_name=u"Острая токсичность при введении в желудок")
-    tox_skin = ArrayField(
-        models.CharField(max_length=100), blank=True, null=True,
-        verbose_name=u"Острая токсичность при нанесении на кожу")
     skin_irritation_1 = ArrayField(
         models.CharField(max_length=100), blank=True, null=True,
         verbose_name=u"Раздраж.действие на кожу")
