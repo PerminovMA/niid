@@ -1,0 +1,15 @@
+uwsgi:
+    socket: /var/tmp/fbot.sock
+    # здесь указываем путь к django-проекту
+    pythonpath: /home/WMUser/fbot_project/fbot
+    env: DJANGO_SETTINGS_MODULE=fbot.settings
+    module: fbot.wsgi
+    daemonize: /home/WMUser/fbot_project//logs/uwsgi.log
+    max-requests: 5000
+    buffer-size: 32768
+    harakiri: 30
+    reload-mercy: 8
+    master: 1
+    no-orphans: 1
+    touch-reload: /home/WMUser/fbot_project/conf/uwsgi
+

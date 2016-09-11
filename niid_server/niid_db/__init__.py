@@ -1,0 +1,1 @@
+default_app_config = 'niid_db.app_config.NIIDAppConfig'
