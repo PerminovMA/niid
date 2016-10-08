@@ -18,13 +18,13 @@ class ToxChar(models.Model):
     dl50_nk = models.CharField(max_length=255, verbose_name=u"DL50", choices=TOXCHAR_TOX_SKIN_CHOICES)
     dl50_nk_value = models.CharField(max_length=100, verbose_name=u"Значение DL50 н/к, мг/кг", blank=True, null=True)
     pdk_atmosphere = models.DecimalField(max_length=100, decimal_places=3, max_digits=7, blank=True, null=True,
-                                         verbose_name=u"ПДК в атмосферном воздухе")
+                                         verbose_name=u"ПДК в атмосферном воздухе", help_text=u"мг/м3")
     pdk_work_zone = models.DecimalField(max_length=100, decimal_places=3, max_digits=7, blank=True, null=True,
-                                        verbose_name=u"ПДК в воздухе рабочей зоны")
+                                        verbose_name=u"ПДК в воздухе рабочей зоны", help_text=u"мг/м3")
     obyv_atmosphere = models.DecimalField(max_length=100, decimal_places=3, max_digits=7, blank=True, null=True,
-                                          verbose_name=u"ОБУВ в атмосферном воздухе")
+                                          verbose_name=u"ОБУВ в атмосферном воздухе", help_text=u"мг/м3")
     obyv_work_zone = models.DecimalField(max_length=100, decimal_places=3, max_digits=7, blank=True, null=True,
-                                         verbose_name=u"ОБУВ в воздухе рабочей зоны")
+                                         verbose_name=u"ОБУВ в воздухе рабочей зоны", help_text=u"мг/м3")
     skin_irritation_1 = ArrayField(
         models.CharField(max_length=100), blank=True, null=True,
         verbose_name=u"Раздраж.действие на кожу")
@@ -74,7 +74,7 @@ def generate_filename(filename):
     return str(time()).replace('.', '_') + str(randint(0, 100000)) + filename[filename.rfind('.'):]
 
 
-def get_upload_report_file_path(instance, filename):
+def get_upload_files_path(instance, filename):
     return "files/%s/%s/" % (str(randint(1, settings.COUNT_FOLDERS)),
                              str(randint(1, settings.COUNT_FOLDERS))) + generate_filename(filename)
 
@@ -83,21 +83,23 @@ class Passport(models.Model):
     """ Passport of research """
     name = models.CharField(max_length=255, verbose_name=u"Название")
     reg_num = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Номер госрегистрации")
-    manufacturer = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Производитель")
+    manufacturer = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Заявитель")
     receiver = models.CharField(blank=True, null=True, default=u"Научно-исследовательский институт дезинфектологии",
-                                max_length=255, verbose_name=u"Получатель")
+                                max_length=255, verbose_name=u"Исполнитель")
     reg_date = models.DateField(blank=True, null=True, verbose_name=u"Дата регистрации")
     protocol_of_research = models.CharField(blank=True, null=True, max_length=255,
-                                            verbose_name=u"Протоколы исследований")
+                                            verbose_name=u"ДВ")
     destination = models.CharField(max_length=100, verbose_name=u"Назначение (описание потребителей)",
                                    choices=PURPOSE_CHOICES)
     form = models.CharField(max_length=6, verbose_name=u"Препаративная форма", choices=PASSPORT_FORM_CHOICES)
     target_objects = ArrayField(
         models.CharField(max_length=100), blank=True, null=True, verbose_name=u"Целевые объекты")
-    formulation = models.TextField(verbose_name=u"Рецептура ДВ")
+    formulation = models.TextField(verbose_name=u"Рецептура")
     comment = models.TextField(blank=True, null=True, verbose_name=u"Комментарий")
-    report_file = models.FileField(blank=True, null=True, upload_to=get_upload_report_file_path,
-                                   verbose_name=u"Полный текст отчета")
+    report_file = models.FileField(blank=True, null=True, upload_to=get_upload_files_path,
+                                   verbose_name=u"Отчет")
+    instruction_file = models.FileField(blank=True, null=True, upload_to=get_upload_files_path,
+                                        verbose_name=u"Инструкция")
     tox_char = models.ForeignKey(ToxChar, verbose_name=u"Токсикологическая характеристика")
 
     class Meta:
@@ -108,20 +110,23 @@ class Passport(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        """ delete old report_file when replacing by updating the file """
+        """ delete old report_file/report_file when replacing by updating the file """
         try:
             this = Passport.objects.get(id=self.id)
             if this.report_file != self.report_file:
                 this.report_file.delete(save=False)
+            if this.instruction_file != self.instruction_file:
+                this.instruction_file.delete(save=False)
         except Passport.DoesNotExist:
-            pass  # When new report_file then we do nothing, normal case
+            pass  # When new report_file/instruction_file then we do nothing, normal case
         super(Passport, self).save(*args, **kwargs)
 
 
 @receiver(pre_delete, sender=Passport)
-def passport_report_file_deleter(sender, instance, **kwargs):
-    """ delete report_file when remove Passport object from admin panel """
+def passport_files_deleter(sender, instance, **kwargs):
+    """ delete report_file and instruction_file when remove Passport object from admin panel """
     instance.report_file.delete(False)
+    instance.instruction_file.delete(False)
 
 
 class Enclosure(models.Model):

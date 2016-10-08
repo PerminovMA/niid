@@ -44,7 +44,7 @@ class PassportForm(forms.ModelForm):
     class Meta:
         model = Passport
         fields = ['name', 'reg_num', 'manufacturer', 'receiver', 'reg_date', 'protocol_of_research', 'destination',
-                  'form', 'target_objects', 'formulation', 'comment', 'report_file', 'tox_char']
+                  'form', 'target_objects', 'formulation', 'comment', 'report_file', 'instruction_file', 'tox_char']
 
 
 class EnclosureForm(forms.ModelForm):

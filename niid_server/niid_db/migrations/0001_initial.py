@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                 ('target_objects', models.TextField(verbose_name='\u0426\u0435\u043b\u0435\u0432\u044b\u0435 \u043e\u0431\u044a\u0435\u043a\u0442\u044b')),
                 ('formulation', models.TextField(verbose_name='\u0420\u0435\u0446\u0435\u043f\u0442\u0443\u0440\u0430 \u0414\u0412')),
                 ('comment', models.TextField(blank=True, null=True, verbose_name='\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439')),
-                ('report_file', models.FileField(blank=True, null=True, upload_to=niid_db.models.get_upload_report_file_path, verbose_name='\u041f\u043e\u043b\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442 \u043e\u0442\u0447\u0435\u0442\u0430')),
+                ('report_file', models.FileField(blank=True, null=True, upload_to=niid_db.models.get_upload_files_path, verbose_name='\u041f\u043e\u043b\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442 \u043e\u0442\u0447\u0435\u0442\u0430')),
             ],
             options={
                 'verbose_name': '\u041f\u0430\u0441\u043f\u043e\u0440\u0442',
