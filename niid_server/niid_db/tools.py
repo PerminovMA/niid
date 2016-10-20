@@ -13,7 +13,21 @@ FLUID = 'FLUID'
 PENCIL = 'PENCIL'
 GLUE = 'GLUE'
 SNARE = 'SNARE'
-EMULSION = 'EMULSI'
+C_EMULSION = 'C_EMULSION'
+PAINT = 'PAINT'
+LACQUER = 'LACQUER'
+TRAP = 'TRAP'
+PASTE = 'PASTE'
+PLATES = 'PLATES'
+POWDER = 'POWDER'
+BAIT = 'BAIT'
+CANDLES = 'CANDLES'
+SPIRALS = 'SPIRALS'
+SPRAY = 'SPRAY'
+SUSPENSION = 'SUSPENSION'
+PILLS = 'PILLS'
+CHUNK = 'CHUNK'
+EMULSION = 'EMULSION'
 
 PASSPORT_FORM_CHOICES = (
     (BOTTLE, u'Аэрозольные баллоны'),
@@ -25,7 +39,21 @@ PASSPORT_FORM_CHOICES = (
     (PENCIL, u'Карандаш'),
     (GLUE, u'Клей'),
     (SNARE, u'Клейкие ловушки'),
-    (EMULSION, u'Концентрат эмульсии'),
+    (C_EMULSION, u'Концентрат эмульсии'),
+    (PAINT, u'Краска'),
+    (LACQUER, u'Лак'),
+    (TRAP, u'Ловушка'),
+    (PASTE, u'Паста'),
+    (PLATES, u'Пластины'),
+    (POWDER, u'Порошок'),
+    (BAIT, u'Приманка'),
+    (CANDLES, u'Свечи'),
+    (SPIRALS, u'Спирали'),
+    (SPRAY, u'Спрей'),
+    (SUSPENSION, u'Суспензии'),
+    (PILLS, u'Таблетки'),
+    (CHUNK, u'Шашки'),
+    (EMULSION, u'Эмульсии'),
 )
 
 PASSPORT_TARGET_OBJECTS_CHOICES = (

@@ -91,7 +91,7 @@ class Passport(models.Model):
                                             verbose_name=u"ДВ")
     destination = models.CharField(max_length=100, verbose_name=u"Назначение (описание потребителей)",
                                    choices=PURPOSE_CHOICES)
-    form = models.CharField(max_length=6, verbose_name=u"Препаративная форма", choices=PASSPORT_FORM_CHOICES)
+    form = models.CharField(max_length=50, verbose_name=u"Препаративная форма", choices=PASSPORT_FORM_CHOICES)
     target_objects = ArrayField(
         models.CharField(max_length=100), blank=True, null=True, verbose_name=u"Целевые объекты")
     formulation = models.TextField(verbose_name=u"Рецептура")
